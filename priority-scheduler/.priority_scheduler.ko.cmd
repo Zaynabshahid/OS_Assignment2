@@ -1,0 +1,1 @@
+cmd_/media/sf_OS_Assignment2/priority-scheduler/priority_scheduler.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /media/sf_OS_Assignment2/priority-scheduler/priority_scheduler.ko /media/sf_OS_Assignment2/priority-scheduler/priority_scheduler.o /media/sf_OS_Assignment2/priority-scheduler/priority_scheduler.mod.o;  true

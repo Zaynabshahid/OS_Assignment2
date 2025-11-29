@@ -1,0 +1,1 @@
+cmd_/media/sf_OS_Assignment2/priority-scheduler/Module.symvers := sed 's/ko$$/o/' /media/sf_OS_Assignment2/priority-scheduler/modules.order | scripts/mod/modpost -m -a  -o /media/sf_OS_Assignment2/priority-scheduler/Module.symvers -e -i Module.symvers   -T -
