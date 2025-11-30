@@ -1,0 +1,200 @@
+=== Safe LKM IPC Module Test ===
+Sat Nov 29 09:14:14 PM UTC 2025
+
+Loading module...
+Module loaded. dmesg output:
+[ 5489.480193] [safe_lkm] High-priority msg from PID 2045: Msg2045
+[ 5489.485449] [safe_lkm] High-priority msg from PID 2046: Msg2046
+[ 5489.495865] [safe_lkm] High-priority msg from PID 2047: Msg2047
+[ 5489.501683] [safe_lkm] High-priority msg from PID 2048: Msg2048
+[ 5489.507430] [safe_lkm] High-priority msg from PID 2049: Msg2049
+[ 5489.521702] [safe_lkm] Normal-priority msg from PID 2050: Msg2050
+[ 5527.060492] [safe_lkm] Received high-priority message: Msg2005
+[ 5527.060497] [safe_lkm] User received: PID=2005, Type=5, Text=Msg2005
+[ 5527.065898] [safe_lkm] Received high-priority message: Msg2006
+[ 5527.065903] [safe_lkm] User received: PID=2006, Type=6, Text=Msg2006
+[ 5527.070932] [safe_lkm] Received high-priority message: Msg2007
+[ 5527.070936] [safe_lkm] User received: PID=2007, Type=7, Text=Msg2007
+[ 5527.080946] [safe_lkm] Received high-priority message: Msg2008
+[ 5527.080951] [safe_lkm] User received: PID=2008, Type=8, Text=Msg2008
+[ 5527.085914] [safe_lkm] Received high-priority message: Msg2009
+[ 5527.085919] [safe_lkm] User received: PID=2009, Type=9, Text=Msg2009
+[ 5534.286586] [safe_lkm] Cleaned up 45 messages
+[ 5534.286591] [safe_lkm] IPC Module unloaded
+[ 5751.458767] [safe_lkm] IPC Module loaded
+               [safe_lkm] Use: echo '<command>' > /proc/safe_lkm
+
+=== Test 1: Basic Functionality ===
+B 1001 6 HelloHigh
+B 1002 3 HelloNormal
+R
+R
+Current queue status:
+=== Safe LKM IPC Demo ===
+Messages in queue: 0
+Commands:
+  B <pid> <type> <msg> - Send message
+  R                     - Receive message
+Examples:
+  echo "B 1001 6 Hello" > /proc/safe_lkm
+  echo "R" > /proc/safe_lkm
+
+
+=== Test 2: Stress Test ===
+B 2001 1 Msg2001
+B 2002 2 Msg2002
+B 2003 3 Msg2003
+B 2004 4 Msg2004
+B 2005 5 Msg2005
+B 2006 6 Msg2006
+B 2007 7 Msg2007
+B 2008 8 Msg2008
+B 2009 9 Msg2009
+B 2010 0 Msg2010
+B 2011 1 Msg2011
+B 2012 2 Msg2012
+B 2013 3 Msg2013
+B 2014 4 Msg2014
+B 2015 5 Msg2015
+B 2016 6 Msg2016
+B 2017 7 Msg2017
+B 2018 8 Msg2018
+B 2019 9 Msg2019
+B 2020 0 Msg2020
+B 2021 1 Msg2021
+B 2022 2 Msg2022
+B 2023 3 Msg2023
+B 2024 4 Msg2024
+B 2025 5 Msg2025
+B 2026 6 Msg2026
+B 2027 7 Msg2027
+B 2028 8 Msg2028
+B 2029 9 Msg2029
+B 2030 0 Msg2030
+B 2031 1 Msg2031
+B 2032 2 Msg2032
+B 2033 3 Msg2033
+B 2034 4 Msg2034
+B 2035 5 Msg2035
+B 2036 6 Msg2036
+B 2037 7 Msg2037
+B 2038 8 Msg2038
+B 2039 9 Msg2039
+B 2040 0 Msg2040
+B 2041 1 Msg2041
+B 2042 2 Msg2042
+B 2043 3 Msg2043
+B 2044 4 Msg2044
+B 2045 5 Msg2045
+B 2046 6 Msg2046
+B 2047 7 Msg2047
+B 2048 8 Msg2048
+B 2049 9 Msg2049
+B 2050 0 Msg2050
+Queue status after stress test:
+=== Safe LKM IPC Demo ===
+Messages in queue: 50
+Commands:
+  B <pid> <type> <msg> - Send message
+  R                     - Receive message
+Examples:
+  echo "B 1001 6 Hello" > /proc/safe_lkm
+  echo "R" > /proc/safe_lkm
+
+R
+R
+R
+R
+R
+Queue status after receiving 5 messages:
+=== Safe LKM IPC Demo ===
+Messages in queue: 45
+Commands:
+  B <pid> <type> <msg> - Send message
+  R                     - Receive message
+Examples:
+  echo "B 1001 6 Hello" > /proc/safe_lkm
+  echo "R" > /proc/safe_lkm
+
+
+=== Test 3: Edge Cases ===
+Emptying queue...
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+R
+Attempt to receive from empty queue:
+R
+Sending invalid PID message:
+B -1 3 InvalidPID
+Sending boundary type message:
+B 3001 20 BoundaryMsg
+
+Unloading module...
+Module unloaded. dmesg output:
+[ 5753.135053] [safe_lkm] Received normal-priority message: Msg2041
+[ 5753.135058] [safe_lkm] User received: PID=2041, Type=1, Text=Msg2041
+[ 5753.141678] [safe_lkm] Received normal-priority message: Msg2042
+[ 5753.141683] [safe_lkm] User received: PID=2042, Type=2, Text=Msg2042
+[ 5753.147125] [safe_lkm] Received normal-priority message: Msg2043
+[ 5753.147130] [safe_lkm] User received: PID=2043, Type=3, Text=Msg2043
+[ 5753.153571] [safe_lkm] Received normal-priority message: Msg2044
+[ 5753.153575] [safe_lkm] User received: PID=2044, Type=4, Text=Msg2044
+[ 5753.159857] [safe_lkm] Received normal-priority message: Msg2050
+[ 5753.159862] [safe_lkm] User received: PID=2050, Type=0, Text=Msg2050
+[ 5753.166618] [safe_lkm] No messages available
+[ 5753.172142] [safe_lkm] No messages available
+[ 5753.177940] [safe_lkm] No messages available
+[ 5753.183798] [safe_lkm] No messages available
+[ 5753.189854] [safe_lkm] No messages available
+[ 5753.196091] [safe_lkm] No messages available
+[ 5753.202066] [safe_lkm] Invalid PID or text
+[ 5753.207528] [safe_lkm] High-priority msg from PID 3001: BoundaryMsg
+[ 5753.219565] [safe_lkm] Cleaned up 1 messages
+[ 5753.219572] [safe_lkm] IPC Module unloaded
